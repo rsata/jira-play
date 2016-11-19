@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   getData() {
-    fetch('http://localhost:3001/test', {
+    fetch('http://localhost:3001/api/get', {
       method: 'GET'
     })
       .then(r => r.json())
