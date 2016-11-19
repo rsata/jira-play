@@ -1,0 +1,11 @@
+1.	One that shows the backlog – aka the amount of work we have to do based on “remaining time” for the projects for the different “project types” we have
+
+2.	The amount of requests we’ve done for each project type for the past year
+
+Get issue
+https://jira.rubicon.com/rest/api/2/issue/DEP-6525
+
+Use JQL search
+https://jira.rubicon.com/rest/api/2/search?jql=...
+
+https://jira.rubicon.com/rest/api/2/search?jql=assignee=rsata&resolution=unresolved&project=DEP
