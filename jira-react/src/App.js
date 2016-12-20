@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// const query = 'project = DEP AND resolution = unresolved AND assignee = rsata';
+// const query = 'resolution = Done AND project = DEP AND createdDate > "2016/01/01"';
+// const query = 'resolution = Done AND project = SS AND createdDate > "2016/01/01"';
+const query = 'resolution = Unresolved AND project = DEP';
+
 class App extends Component {
 
   constructor() {
@@ -12,12 +17,24 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData(query);
   }
 
-  getData() {
+  // getData() {
+  //   fetch('http://localhost:3001/api/get', {
+  //     method: 'GET'
+  //   })
+  //     .then(r => r.json())
+  //     .then(data => console.log(data));
+  // }
+
+  getData(query) {
     fetch('http://localhost:3001/api/get', {
-      method: 'GET'
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({ query })
     })
       .then(r => r.json())
       .then(data => console.log(data));
