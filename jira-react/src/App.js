@@ -20,14 +20,6 @@ class App extends Component {
     this.getData(query);
   }
 
-  // getData() {
-  //   fetch('http://localhost:3001/api/get', {
-  //     method: 'GET'
-  //   })
-  //     .then(r => r.json())
-  //     .then(data => console.log(data));
-  // }
-
   getData(query) {
     fetch('http://localhost:3001/api/get', {
       method: 'POST',
