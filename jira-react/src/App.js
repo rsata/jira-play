@@ -8,7 +8,7 @@ class App extends Component {
     super();
     this.state = {
       data: null
-    }
+    };
   }
 
   componentDidMount() {
@@ -20,12 +20,12 @@ class App extends Component {
       method: 'GET'
     })
       .then(r => r.json())
-      .then(data => console.log(data))
+      .then(data => console.log(data));
   }
 
   render() {
 
-    if (!this.state.data) return (<div>Loading...</div>)
+    if (!this.state.data) return (<div>Loading...</div>);
 
     return (
       <div className="App">
