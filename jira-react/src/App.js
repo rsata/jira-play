@@ -16,9 +16,7 @@ class App extends Component {
     this.state = {
       data: null,
       chartData: [],
-      sortedData: {
-        'undefined': []
-      },
+      sortedData: {},
       chartJSData: [],
       chartJSLabels: []
     };
@@ -44,27 +42,27 @@ class App extends Component {
       .then(r => r.json())
       .then(data => this.setState({data}))
       .then(() => this.sortData())
-      .then(() => this.makeChartData())
-      .then(() => this.makeChartJSData())
-      .then(() => this.makeChartJSLabels());
+      .then(() => this.makeChartData());
+      // .then(() => this.makeChartJSData())
+      // .then(() => this.makeChartJSLabels());
   }
 
   sortData() {
     this.state.data.issues.forEach(x => {
       // this method only counts first label of a jira ticket - could also loop though those with multiple, however, they will count more than once
-      if (x.fields.labels.length === 0) {
+      // if (x.fields.customfield_10903.value === 0) {
+      //   let s = this.state.sortedData;
+      //   s['undefined'].push(x);
+      //   this.setState({sortedData: s});
+      // }
+      if (this.state.sortedData[x.fields.customfield_10903.value] === undefined) {
         let s = this.state.sortedData;
-        s['undefined'].push(x);
+        s[x.fields.customfield_10903.value] = [x];
         this.setState({sortedData: s});
       }
-      if (this.state.sortedData[x.fields.labels[0]] === undefined) {
+      if (this.state.sortedData[x.fields.customfield_10903.value] !== undefined) {
         let s = this.state.sortedData;
-        s[x.fields.labels[0]] = [x];
-        this.setState({sortedData: s});
-      }
-      if (this.state.sortedData[x.fields.labels[0]] !== undefined) {
-        let s = this.state.sortedData;
-        s[x.fields.labels[0]].push(x);
+        s[x.fields.customfield_10903.value].push(x);
         this.setState({sortedData: s});
       }
     });
@@ -99,11 +97,12 @@ class App extends Component {
 
   render() {
     if (!this.state.data) return (<div>Loading...</div>);
-    // console.log(this.state);
+
     return (
       <div className="App">
+        <h1>Unresolved issues: {this.state.data.issues.length}</h1>
         <PieChart width={600} height={600}>
-          <Pie data={this.state.chartData} cx={300} cy={300} outerRadius={180} width={700} fill='#56C5D0' label />
+          <Pie data={this.state.chartData} cx={300} cy={200} outerRadius={180} width={700} fill='#56C5D0' label={<IssueType />} />
           <Tooltip/>
         </PieChart>
         {/* <Chart type='pie' data={this.state.chartJSData} labels={this.state.chartJSLabels} /> */}
@@ -111,5 +110,12 @@ class App extends Component {
     );
   }
 }
+
+const IssueType = (props) => {
+  const {x, y, payload} = props;
+  return (
+    <text x={x} y={y} fontSize={15} textAnchor="middle">{payload.name}</text>
+  );
+};
 
 export default App;

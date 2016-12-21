@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-const fields = 'assignee,status,resolution,timetracking,labels';
+const fields = 'assignee,status,resolution,timetracking,labels,customfield_10903';
 
 function jqlQuery(q) {
   return encodeURIComponent(q);
