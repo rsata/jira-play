@@ -72,9 +72,9 @@ class App extends Component {
         item.assignee = 'unassigned';
       } else {
         item.assignee = x.fields.assignee.displayName;
+        item.assigneeLoad = this.state.sortedDataByAssignee[x.fields.assignee.displayName].length;
       }
 
-      item.assigneeLoad = this.state.sortedDataByAssignee[x.fields.assignee.displayName].length;
       item.type = x.fields.customfield_10903.value;
       item.status = x.fields.status.name;
 
@@ -178,7 +178,8 @@ class App extends Component {
   }
 
   makeColors() {
-    for (let key = 0; key < this.state.chartDataPie.length; key++) {
+    // for (let key = 0; key < this.state.chartDataPie.length; key++) {
+    for (let key = 0; key < 20; key++) {
       let c = this.state.colors;
       c.push(this.generateColor());
       this.setState({colors: c});
@@ -193,7 +194,7 @@ class App extends Component {
         <h1>Unresolved issues: {this.state.data.issues.length}</h1>
         <GraphPie chartDataPie={this.state.chartDataPie} colors={this.state.colors} />
         <GraphRadial chartDataPie={this.state.chartDataPie} />
-        <GraphBar chartDataBar={this.state.chartDataBar} />
+        <GraphBar chartDataBar={this.state.chartDataBar} colors={this.state.colors} />
         {/* <Chart type='pie' data={this.state.chartJSData} labels={this.state.chartJSLabels} /> */}
       </div>
     );

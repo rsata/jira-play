@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart, XAxis, YAxis, CartesianGrid, Bar, Text } from 'recharts';
+import { BarChart, XAxis, YAxis, CartesianGrid, Bar, Text, Cell } from 'recharts';
 
 export const GraphBar = (props) => {
   return(
@@ -7,7 +7,9 @@ export const GraphBar = (props) => {
      <XAxis dataKey="name" tick={renderVerticalTick} interval={0} height={150} />
      <YAxis/>
      <CartesianGrid strokeDasharray="3 3"/>
-     <Bar dataKey="value" fill="#8884d8" />
+     <Bar dataKey="value">
+       {props.chartDataBar.map((entry, i) => <Cell key={i} fill={props.colors[i]} />)}
+     </Bar>
     </BarChart>
   );
 };
